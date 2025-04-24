@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Precision PCs Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5717141519109804"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="The official Precision PCs blog. Get news, tips, and insights on custom computers, consoles, and repair.">
+    <meta name="keywords" content="custom PCs, PC blog, gaming rigs, tech news, Precision PCs">
+    <meta name="author" content="Ethan Phillips">
+  </head>
+  <body style="font-family: sans-serif; max-width: 800px; margin: auto; padding: 1rem; background-color: #FAF1E8;">
+    <nav style="margin-bottom: 2rem;">
+      <a href="https://precisionpcs.net">Home</a> |
+      <a href="https://links.precisionpcs.net">Links</a>
+    </nav>
+    <header>
+      <h1 style="color:#DB4520">Precision PCs Blog</h1>
+    </header>
+    <main>
+      <ul>
+        {posts.map(post => (
+          <li>
+            <a href={`/blog/${post.slug}/`}><strong>{post.data.title}</strong></a>
+            <p>{post.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('gotrue.user');
+    const user = token ? JSON.parse(token) : null;
+    if (user && user.email === "ethan@precisionpcs.net") {
+      const status = document.createElement('p');
+      status.innerHTML = `👋 Welcome, Ethan`;
+      document.body.prepend(status);
+    }
+  });
+</script>
+

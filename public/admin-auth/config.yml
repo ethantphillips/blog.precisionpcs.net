@@ -1,11 +1,6 @@
 backend:
-  name: github
-  repo: blog.precisionpcs.net
+  name: test-repo
   branch: main
-  auth_type: implicit
-  base_url: https://blog.precisionpcs.net
-  app_id: gX4WaYFGPmhyDIF1i9Mi2A6GTBdZfIIY
-  site_domain: blog.precisionpcs.net
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -15,7 +10,7 @@ collections:
     label: "Blog Posts"
     folder: "src/content/blog"
     create: true
-    slug: "{slug}"
+    slug: "{{slug}}"
     editor:
       preview: true
     publish_mode: editorial_workflow

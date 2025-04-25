@@ -77,17 +77,25 @@ const posts = await getCollection('blog');
   </head>
   <body>
     <header>
-      <img src="/uploads/logo.png" alt="Logo" style="max-width: 160px; margin-bottom: 1rem;">
-      <h1>Precision PCs Blog</h1>
-      <div class="search">
-        <input type="text" id="searchBox" placeholder="Search posts..." oninput="filterPosts()" style="padding: 0.5rem; width: 90%; max-width: 400px;">
-      </div>
-      <div class="tags" id="tagFilter"></div>
-    </header>
+  <nav style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 1rem 2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+    <div style="display: flex; align-items: center;">
+      <img src="/uploads/logo.png" alt="Logo" style="height: 40px; margin-right: 1rem;">
+      <strong style="font-size: 1.2rem; color: #DB4520;">Precision PCs Blog</strong>
+    </div>
+    <div>
+      <a href="https://precisionpcs.net" style="margin-right: 1rem; color: #DB4520; text-decoration: none; font-weight: bold;">Home</a>
+      <a href="https://links.precisionpcs.net" style="color: #DB4520; text-decoration: none; font-weight: bold;">Links</a>
+    </div>
+  </nav>
+  <div class="search">
+    <input type="text" id="searchBox" placeholder="Search posts..." oninput="filterPosts()" style="padding: 0.5rem; width: 90%; max-width: 400px; margin-top: 2rem;">
+  </div>
+  <div class="tags" id="tagFilter"></div>
+</header>
     <main class="posts" id="postGrid">
       {posts.map(post => (
         <a href={`/blog/${post.slug}/`} class="card" data-tags={JSON.stringify(post.data.tags)}>
-          {post.data.thumbnail && <img src={post.data.thumbnail} alt={post.data.title} />}
+          {post.data.thumbnail ? <img src={post.data.thumbnail} alt={post.data.title} /> : null}
           <div class="card-content">
             <h2>{post.data.title}</h2>
             <p>{post.data.description}</p>

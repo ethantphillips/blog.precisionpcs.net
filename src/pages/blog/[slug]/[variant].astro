@@ -1,7 +1,15 @@
 ---
-import { getEntryBySlug } from 'astro:content';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.flatMap(post => [
+    { params: { slug: post.slug, variant: "no-ads" } },
+  ]);
+}
+
 const { slug, variant } = Astro.params;
-const post = await getEntryBySlug('blog', slug);
+const post = await getCollection('blog').then(posts => posts.find(p => p.slug === slug));
 if (!post) throw new Error(`Post not found: ${slug}`);
 const showAds = variant !== "no-ads";
 ---

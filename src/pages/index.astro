@@ -128,6 +128,27 @@ const posts = await getCollection('blog');
       });
 
       function filterPosts() {
+        const postGrid = document.getElementById('postGrid');
+        let anyVisible = false;
+        const searchTerm = searchBox.value.toLowerCase();
+        posts.forEach(card => {
+          const text = card.innerText.toLowerCase();
+          const cardTags = JSON.parse(card.dataset.tags || '[]');
+          const matchesTag = !activeTag || cardTags.includes(activeTag);
+          const matchesSearch = text.includes(searchTerm);
+          const visible = matchesTag && matchesSearch;
+          card.style.display = visible ? 'block' : 'none';
+          if (visible) anyVisible = true;
+        });
+        let message = document.getElementById('noResultsMessage');
+        if (!message) {
+          message = document.createElement('div');
+          message.id = 'noResultsMessage';
+          message.innerHTML = '<p style="margin-top:2rem; color:#DB4520; font-weight:bold;">We searched with Precision, but we couldn\'t find the post you were looking for.<br><a href=\"/\">Return to the main blog</a></p>';
+          postGrid.parentNode.appendChild(message);
+        }
+        message.style.display = anyVisible ? 'none' : 'block';
+    }
         const term = searchBox.value.toLowerCase();
         posts.forEach(card => {
           const text = card.innerText.toLowerCase();

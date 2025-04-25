@@ -5,6 +5,7 @@ backend:
   auth_type: implicit
   base_url: https://blog.precisionpcs.net
   app_id: gX4WaYFGPmhyDIF1i9Mi2A6GTBdZfIIY
+  site_domain: blog.precisionpcs.net
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

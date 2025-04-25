@@ -13,10 +13,12 @@ collections:
     slug: "{{slug}}"
     editor:
       preview: true
+    publish_mode: editorial_workflow
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
       - { label: "Description", name: "description", widget: "string" }
-      - { label: "Author", name: "author", widget: "string", default: "Ethan Phillips" }
       - { label: "Tags", name: "tags", widget: "list", default: ["Build", "Repair", "News"] }
-      - { label: "Body", name: "body", widget: "markdown", buttons: ["bold", "italic", "link", "heading-one", "heading-two", "quote", "code", "bulleted-list", "numbered-list"], editor_components: ["image", "code-block"] }
+      - { label: "Author", name: "author", widget: "string", default: "Ethan Phillips" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

@@ -14,8 +14,49 @@
         width: 160px;
         margin: 0 auto;
       }
+      #pinPrompt {
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 10%;
+      }
+      #pinPrompt input {
+        padding: 0.5rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+      }
+      #pinPrompt button {
+        padding: 0.5rem 1rem;
+        background-color: #DB4520;
+        color: white;
+        font-weight: bold;
+        border: none;
+        margin-top: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+      }
     </style>
   </head>
   <body>
+    <div id="pinPrompt">
+      <h2>Admin Access</h2>
+      <p>Enter your PIN to access the CMS:</p>
+      <input type="password" id="pinInput" placeholder="Enter PIN" />
+      <br />
+      <button onclick="checkPin()">Login</button>
+    </div>
+    <script>
+      const correctPin = "21310";
+      function checkPin() {
+        const input = document.getElementById('pinInput').value;
+        if (input === correctPin) {
+          document.getElementById('pinPrompt').style.display = 'none';
+          const script = document.createElement('script');
+          script.src = "https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js";
+          document.body.appendChild(script);
+        } else {
+          alert("Incorrect PIN.");
+        }
+      }
+    </script>
   </body>
 </html>

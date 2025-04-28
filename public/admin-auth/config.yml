@@ -1,6 +1,11 @@
 backend:
-  name: test-repo
+  name: github
+  repo: blog.precisionpcs.net
   branch: main
+  auth_type: implicit
+  app_id: Ov23li9Q9bCDRi4B9VmU
+  base_url: https://blog.precisionpcs.net
+  site_domain: blog.precisionpcs.net
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

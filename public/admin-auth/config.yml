@@ -7,7 +7,12 @@ backend:
   base_url: https://dev-3hta1oiqk0o014bz.us.auth0.com
   auth_endpoint: /authorize
   token_endpoint: /oauth/token
-  app_id: Ov23li9Q9bCDRi4B9VmU
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+media_library:
+  name: uploadcare
 
 collections:
   - name: "blog"

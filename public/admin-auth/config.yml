@@ -6,10 +6,9 @@ backend:
   app_id: Ov23li9Q9bCDRi4B9VmU
   base_url: https://blog.precisionpcs.net
   site_domain: blog.precisionpcs.net
-
 media_folder: "public/uploads"
 public_folder: "/uploads"
-
+redirect_uri: https://blog.precisionpcs.net/admin-auth/
 collections:
   - name: "blog"
     label: "Blog Posts"

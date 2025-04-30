@@ -2,13 +2,13 @@ backend:
   name: github
   repo: blog.precisionpcs.net
   branch: main
-  auth_type: implicit
+  auth_type: pkce
+  client_id: Ov23li9Q9bCDRi4B9VmU
+  base_url: https://dev-3hta1oiqk0o014bz.us.auth0.com
+  auth_endpoint: /authorize
+  token_endpoint: /oauth/token
   app_id: Ov23li9Q9bCDRi4B9VmU
-  base_url: https://blog.precisionpcs.net
-  site_domain: blog.precisionpcs.net
-media_folder: "public/uploads"
-public_folder: "/uploads"
-redirect_uri: https://blog.precisionpcs.net/admin-auth/
+
 collections:
   - name: "blog"
     label: "Blog Posts"

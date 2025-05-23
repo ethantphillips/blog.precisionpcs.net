@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+"preinstall": "npm install @astrojs/netlify",
     "build": "astro build",
     "preview": "astro preview"
   },

@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /blog/*/no-ads/
-Allow: /
-
-Sitemap: https://blog.precisionpcs.net/sitemap.xml

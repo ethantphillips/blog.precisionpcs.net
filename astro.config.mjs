@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config';
+import netlify from '@astrojs/netlify/functions';
+
 export default defineConfig({
-  site: 'https://blog.precisionpcs.net',
-  output: 'static'
+  output: 'server',
+  adapter: netlify(),
 });

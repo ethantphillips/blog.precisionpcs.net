@@ -1,0 +1,164 @@
+---
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog');
+---
+
+<html lang="en">
+  <head>
+  <link rel="icon" type="image/png" href="/uploads/logo.png">
+    <meta charset="UTF-8">
+    <title>Precision PCs Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The official Precision PCs blog. Get news, tips, and insights on custom computers, consoles, and repair.">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <style>
+      body {
+        background-color: #FAF1E8;
+        font-family: sans-serif;
+        margin: 0;
+        padding: 2rem;
+        text-align: center;
+      }
+      header h1 {
+        color: #DB4520;
+        margin-bottom: 1rem;
+      }
+      .welcome {
+        font-weight: bold;
+        margin-bottom: 2rem;
+      }
+      .search, .tags {
+        margin-bottom: 1rem;
+      }
+      .tag {
+        background-color: #DB4520;
+        color: white;
+        border-radius: 4px;
+        padding: 0.3rem 0.6rem;
+        margin: 0.2rem;
+        cursor: pointer;
+        display: inline-block;
+      }
+      .posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+      }
+      .card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-align: left;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s ease;
+      }
+      .card:hover {
+        transform: scale(1.02);
+      }
+      .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 1rem;
+      }
+      .card h2 {
+        margin: 0 0 0.5rem;
+        color: #DB4520;
+      }
+      .card p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+  <nav style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 1rem 2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+    <div style="display: flex; align-items: center;">
+      <img src="/uploads/logo.png" alt="Logo" style="height: 40px; margin-right: 1rem;">
+      <strong style="font-size: 1.2rem; color: #DB4520;">Precision PCs Blog</strong>
+    </div>
+    <div>
+      <a href="https://precisionpcs.net" style="margin-right: 1rem; color: #DB4520; text-decoration: none; font-weight: bold;">Home</a>
+      <a href="https://links.precisionpcs.net" style="color: #DB4520; text-decoration: none; font-weight: bold;">Links</a>
+    </div>
+  </nav>
+  <div class="search">
+    <input type="text" id="searchBox" placeholder="Search posts..." oninput="filterPosts()" style="padding: 0.5rem; width: 90%; max-width: 400px; margin-top: 2rem;">
+  </div>
+  <div class="tags" id="tagFilter"></div>
+</header>
+    <main class="posts" id="postGrid">
+      {posts.map(post => (
+        <a href={`/blog/${post.slug}/`} class="card" data-tags={JSON.stringify(post.data.tags)}>
+          {post.data.thumbnail ? <img src={post.data.thumbnail} alt={post.data.title} /> : null}
+          <div class="card-content">
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+          </div>
+        </a>
+      ))}
+    </main>
+    <script type="module">
+      const posts = Array.from(document.querySelectorAll('.card'));
+      const tagArea = document.getElementById('tagFilter');
+      const searchBox = document.getElementById('searchBox');
+
+      let activeTag = null;
+
+      const tags = new Set();
+      posts.forEach(card => {
+        const postTags = JSON.parse(card.dataset.tags || '[]');
+        postTags.forEach(tag => tags.add(tag));
+      });
+
+      tags.forEach(tag => {
+        const btn = document.createElement('span');
+        btn.className = 'tag';
+        btn.textContent = tag;
+        btn.onclick = () => {
+          activeTag = (activeTag === tag) ? null : tag;
+          filterPosts();
+        };
+        tagArea.appendChild(btn);
+      });
+
+      function filterPosts() {
+        const postGrid = document.getElementById('postGrid');
+        let anyVisible = false;
+        const searchTerm = searchBox.value.toLowerCase();
+        posts.forEach(card => {
+          const text = card.innerText.toLowerCase();
+          const cardTags = JSON.parse(card.dataset.tags || '[]');
+          const matchesTag = !activeTag || cardTags.includes(activeTag);
+          const matchesSearch = text.includes(searchTerm);
+          const visible = matchesTag && matchesSearch;
+          card.style.display = visible ? 'block' : 'none';
+          if (visible) anyVisible = true;
+        });
+        let message = document.getElementById('noResultsMessage');
+        if (!message) {
+          message = document.createElement('div');
+          message.id = 'noResultsMessage';
+          message.innerHTML = '<p style="margin-top:2rem; color:#DB4520; font-weight:bold;">We searched with Precision, but we couldn\'t find the post you were looking for.<br><a href=\"/\">Return to the main blog</a></p>';
+          postGrid.parentNode.appendChild(message);
+        }
+        message.style.display = anyVisible ? 'none' : 'block';
+    }
+        const term = searchBox.value.toLowerCase();
+        posts.forEach(card => {
+          const text = card.innerText.toLowerCase();
+          const cardTags = JSON.parse(card.dataset.tags || '[]');
+          const matchesTag = !activeTag || cardTags.includes(activeTag);
+          const matchesSearch = text.includes(term);
+          card.style.display = matchesTag && matchesSearch ? 'block' : 'none';
+        });
+      }
+    </script>
+  </body>
+</html>

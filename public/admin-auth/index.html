@@ -1,14 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>PrecisionPCs CMS</title>
-    <link rel="icon" href="/uploads/logo.png" />
-  </head>
-  <body>
-    <div id="nc-root"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; height: 100vh; justify-content: center; align-items: center; background: #f0f0f0; }
+    form { background: white; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input[type="password"] { padding: 0.5em; margin-top: 1em; width: 100%; }
+    button { margin-top: 1em; padding: 0.5em 1em; }
+  </style>
+</head>
+<body>
+  <form onsubmit="return login(event)">
+    <h2>Enter Admin PIN</h2>
+    <input type="password" id="pin" placeholder="PIN Code" required />
+    <button type="submit">Login</button>
+    <p id="error" style="color: red;"></p>
+  </form>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const code = document.getElementById('pin').value;
+      const allowed = [];
 
-    <!-- Netlify CMS standalone bundle, defer-loaded -->
-    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js" defer></script>
-  </body>
+      for (let i = 1; i <= 10; i++) {
+        const val = sessionStorage.getItem('ADMIN_PIN_' + i) || localStorage.getItem('ADMIN_PIN_' + i);
+        if (val) allowed.push(val);
+      }
+
+      if (allowed.includes(code)) {
+        sessionStorage.setItem('cmsPin', 'granted');
+        allowed.forEach((val, i) => sessionStorage.setItem('ADMIN_PIN_' + (i + 1), val));
+        window.location.href = '/admin-auth/cms.html';
+      } else {
+        document.getElementById('error').textContent = 'Incorrect PIN.';
+      }
+    }
+  </script>
+</body>
 </html>

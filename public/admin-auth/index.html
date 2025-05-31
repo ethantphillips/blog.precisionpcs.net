@@ -19,25 +19,26 @@
     <button type="submit">Login</button>
     <p id="error" style="color: red;"></p>
   </form>
-  <script>
-    function login(event) {
-      event.preventDefault();
-      const code = document.getElementById('pin').value;
-      const allowed = [];
+  <script type="module">
+  const allowed = [];
 
-      for (let i = 1; i <= 10; i++) {
-        const val = sessionStorage.getItem('ADMIN_PIN_' + i) || localStorage.getItem('ADMIN_PIN_' + i);
-        if (val) allowed.push(val);
-      }
+  for (let i = 1; i <= 10; i++) {
+    const envPin = import.meta.env[`PUBLIC_ADMIN_PIN_${i}`];
+    if (envPin) allowed.push(envPin);
+  }
 
-      if (allowed.includes(code)) {
-        sessionStorage.setItem('cmsPin', 'granted');
-        allowed.forEach((val, i) => sessionStorage.setItem('ADMIN_PIN_' + (i + 1), val));
-        window.location.href = '/admin-auth/cms.html';
-      } else {
-        document.getElementById('error').textContent = 'Incorrect PIN.';
-      }
+  function login(event) {
+    event.preventDefault();
+    const entered = document.getElementById('pin').value;
+
+    if (allowed.includes(entered)) {
+      sessionStorage.setItem('cmsPin', 'granted');
+      window.location.href = '/admin-auth/cms.html';
+    } else {
+      document.getElementById('error').textContent = 'Incorrect PIN.';
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>

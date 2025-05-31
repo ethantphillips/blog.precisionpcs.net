@@ -1,23 +1,20 @@
 
-(function() {
-  const underMaintenance = true; // Change to false to disable maintenance mode
+const allowed = [];
 
-  if (underMaintenance && sessionStorage.getItem("maintenanceBypass") !== "true") {
-    const code = prompt("This site is under maintenance. Enter access code:");
-    const allowedCodes = [];
+for (let i = 1; i <= 10; i++) {
+  const envPin = import.meta.env[`PUBLIC_ADMIN_PIN_${i}`];
+  if (envPin) allowed.push(envPin);
+}
 
-    for (let i = 1; i <= 10; i++) {
-      const envKey = `ADMIN_PIN_${i}`;
-      const val = sessionStorage.getItem(envKey) || localStorage.getItem(envKey); // emulate env vars (Netlify runtime must pass into JS separately)
-      if (val) allowedCodes.push(val);
-    }
+const underMaintenance = true;
 
-    if (allowedCodes.includes(code)) {
-      sessionStorage.setItem("maintenanceBypass", "true");
-      allowedCodes.forEach((val, i) => sessionStorage.setItem(`ADMIN_PIN_${i + 1}`, val));
-    } else {
-      document.write("<h2 style='font-family:sans-serif;text-align:center;margin-top:20%'>Site is under maintenance.<br>Access denied.</h2>");
-      throw new Error("Access denied due to maintenance.");
-    }
+if (underMaintenance && sessionStorage.getItem("maintenanceBypass") !== "true") {
+  const code = prompt("This site is under maintenance. Enter access code:");
+  if (allowed.includes(code)) {
+    sessionStorage.setItem("maintenanceBypass", "true");
+  } else {
+    document.write("<h2 style='font-family:sans-serif;text-align:center;margin-top:20%'>Site is under maintenance.<br>Access denied.</h2>");
+    throw new Error("Access denied due to maintenance.");
   }
-})();
+}
+// If the user has bypassed maintenance, we can continue with the rest of the script

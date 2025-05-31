@@ -1,12 +1,13 @@
-
 exports.handler = async () => {
-  const env = process.env;
-  const validPins = Object.keys(env)
-    .filter(key => key.startsWith("ADMIN_PIN_"))
-    .map(key => env[key]);
+  const pins = [];
+
+  for (let i = 1; i <= 10; i++) {
+    const pin = process.env[`PUBLIC_ADMIN_PIN_${i}`];
+    if (pin) pins.push(pin);
+  }
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ validPins })
+    body: JSON.stringify(pins)
   };
 };

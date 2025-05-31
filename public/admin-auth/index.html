@@ -19,10 +19,12 @@
     <button type="submit">Login</button>
     <p id="error" style="color: red;"></p>
   </form>
-<script type="module">
-  import { getValidPins } from '../../scripts/pin-check.js';
+<script>
+  let allowed = [];
 
-  const allowed = getValidPins();
+  fetch('/.netlify/functions/checkPinEnv')
+    .then(res => res.json())
+    .then(pins => allowed = pins);
 
   document.querySelector("form").addEventListener("submit", (event) => {
     event.preventDefault();

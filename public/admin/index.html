@@ -32,7 +32,7 @@
 
     if (allowed.includes(entered)) {
       sessionStorage.setItem("cmsPin", "granted");
-      window.location.href = "/admin-auth/cms.html";
+      window.location.href = "/admin/cms.html";
     } else {
       document.getElementById("error").textContent = "Incorrect PIN.";
     }

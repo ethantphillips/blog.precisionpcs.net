@@ -8,13 +8,13 @@
     <div id="nc-root"></div>
 
     <!-- Load Decap CMS from correct path -->
-    <script src="/admin-auth/decap-cms.js"></script>
+    <script src="/admin/decap-cms.js"></script>
 
     <!-- Safely initialize CMS after DOM is ready -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (typeof CMS !== 'undefined') {
-          CMS.init({ config: '/admin-auth/config.yml' });
+          CMS.init({ config: '/admin/config.yml' });
 
         } else {
           console.error('CMS failed to load or mount point is missing.');

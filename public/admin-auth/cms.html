@@ -14,7 +14,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (typeof CMS !== 'undefined') {
-          CMS.init();
+          CMS.init({ config: '/admin-auth/config.yml' });
+
         } else {
           console.error('CMS failed to load or mount point is missing.');
         }

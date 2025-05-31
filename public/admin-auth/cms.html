@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Netlify CMS</title>
-    <script>
-      if (sessionStorage.getItem('cmsPin') !== 'granted') {
-        window.location.href = '/admin-auth/';
+<head>
+  <meta charset="UTF-8" />
+  <title>Netlify CMS</title>
+  <script>
+    // Protect route with PIN check
+    if (sessionStorage.getItem('cmsPin') !== 'granted') {
+      window.location.href = '/admin-auth/';
+    }
+  </script>
+  <!-- Load Netlify CMS -->
+  <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
+</head>
+<body>
+  <!-- The required CMS mount point -->
+  <div id="nc-root"></div>
+
+  <!-- Wait for DOM to be ready before running CMS.init() -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof CMS !== 'undefined' && document.getElementById('nc-root')) {
+        CMS.init();
+      } else {
+        console.error('CMS failed to load or mount point is missing.');
       }
-    </script>
-    <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
-  </head>
-  <body>
-    <div id="nc-root"></div>
-    <script>
-      window.addEventListener('DOMContentLoaded', function () {
-        if (typeof CMS !== 'undefined') {
-          CMS.init();
-        } else {
-          console.error('CMS failed to load.');
-        }
-      });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>

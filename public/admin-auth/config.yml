@@ -8,6 +8,7 @@ backend:
   auth_endpoint: /authorize
   token_endpoint: /oauth/token
   scope: repo
+  response_type: code
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

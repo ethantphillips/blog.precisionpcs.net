@@ -14,7 +14,14 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (typeof CMS !== 'undefined') {
-          CMS.init({ config: '/admin/config.yml' });
+          CMS.init
+        ({
+            config: {
+              load_config_file: true,
+              config: '/admin/config.yml',
+             
+            }
+          });
 
         } else {
           console.error('CMS failed to load or mount point is missing.');

@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: blog.precisionpcs.net
+  repo: ethantphillips/blog.precisionpcs.net
   branch: main
   auth_type: pkce
   client_id: Ov23li9Q9bCDRi4B9VmU

@@ -20,26 +20,23 @@
     <p id="error" style="color: red;"></p>
   </form>
 <script type="module">
-  const allowed = [];
+  import { getValidPins } from '../../scripts/pin-check.js';
 
-  for (let i = 1; i <= 10; i++) {
-    const pin = import.meta.env[`PUBLIC_ADMIN_PIN_${i}`];
-    if (pin) allowed.push(pin);
-  }
+  const allowed = getValidPins();
 
   document.querySelector("form").addEventListener("submit", (event) => {
-    event.preventDefault(); // ✅ Prevent form reload
-
+    event.preventDefault();
     const entered = document.getElementById("pin").value;
 
     if (allowed.includes(entered)) {
       sessionStorage.setItem("cmsPin", "granted");
-      window.location.href = "/admin-auth/cms.html"; // ✅ Go to CMS
+      window.location.href = "/admin-auth/cms.html";
     } else {
       document.getElementById("error").textContent = "Incorrect PIN.";
     }
   });
 </script>
+
 
 
 </body>

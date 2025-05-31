@@ -1,19 +1,27 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Netlify CMS</title>
+
+  <!-- Redirect if PIN not entered -->
   <script>
     if (sessionStorage.getItem('cmsPin') !== 'granted') {
       window.location.href = '/admin-auth/';
     }
   </script>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+  <!-- Proper CMS Script (must be BEFORE CMS.init) -->
+  <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
 </head>
 <body>
+  <!-- Initialize CMS after script is loaded -->
   <script>
-    CMS.init();
+    if (typeof CMS !== 'undefined') {
+      CMS.init();
+    } else {
+      console.error('CMS failed to load.');
+    }
   </script>
 </body>
 </html>

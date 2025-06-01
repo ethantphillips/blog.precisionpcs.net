@@ -2,21 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Decap CMS</title>
   </head>
   <body>
+    <!-- Mount point for CMS -->
     <div id="nc-root"></div>
 
-    <!-- Load Decap CMS from correct path -->
-    <script src="public/admin/decap-cms.js"></script>
+    <!-- Load Decap CMS from local file -->
+    <script src="/admin/decap-cms.js"></script>
 
-    <!-- Safely initialize CMS after DOM is ready -->
+    <!-- Initialize CMS once DOM is ready -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        if (typeof CMS !== 'undefined') {
-          CMS.init();
+        if (typeof window.CMS !== "undefined") {
+          window.CMS.init(); // initialize CMS with default config.yml
         } else {
-          console.error('CMS failed to load or mount point is missing.');
+          console.error("CMS failed to load. Make sure decap-cms.js is accessible.");
         }
       });
     </script>

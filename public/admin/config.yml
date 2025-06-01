@@ -2,13 +2,7 @@ backend:
   name: github
   repo: ethantphillips/blog.precisionpcs.net
   branch: main
-  auth_type: pkce
-  client_id: gX4WaYFGPmhyDIF1i9Mi2A6GTBdZfIIY
-  base_url: https://dev-3hta1oiqk0o014bz.us.auth0.com
-  auth_endpoint: /authorize
-  token_endpoint: /oauth/token
-  scope: repo
-  response_type: code
+
 
 media_folder: "/uploads"
 public_folder: "/uploads"

@@ -1,45 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Login</title>
-  <style>
-    body { font-family: Arial, sans-serif; display: flex; height: 100vh; justify-content: center; align-items: center; background: #f0f0f0; }
-    form { background: white; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input[type="password"] { padding: 0.5em; margin-top: 1em; width: 100%; }
-    button { margin-top: 1em; padding: 0.5em 1em; }
-  </style>
-</head>
-<body>
-  <form onsubmit="return login(event)">
-    <h2>Enter Admin PIN</h2>
-    <input type="password" id="pin" placeholder="PIN Code" required />
-    <button type="submit">Login</button>
-    <p id="error" style="color: red;"></p>
-  </form>
-<script>
-  let allowed = [];
+  <head>
+    <meta charset="UTF-8" />
+    <title>Decap CMS</title>
+  </head>
+  <body>
+    <div id="nc-root"></div>
 
-  fetch('/.netlify/functions/checkPinEnv')
-    .then(res => res.json())
-    .then(pins => allowed = pins);
+    <!-- Load Decap CMS locally -->
+    <script src="/admin/decap-cms.js"></script>
 
-  document.querySelector("form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const entered = document.getElementById("pin").value;
-
-    if (allowed.includes(entered)) {
-      sessionStorage.setItem("cmsPin", "granted");
-      window.location.href = "/admin/cms.html";
-    } else {
-      document.getElementById("error").textContent = "Incorrect PIN.";
-    }
-  });
-</script>
-
-
-
-</body>
+    <!-- Initialize CMS after DOM is ready -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof CMS !== "undefined" && CMS.init) {
+          CMS.init();
+        } else {
+          console.error("CMS failed to load or mount point is missing.");
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -7,16 +7,36 @@
   <body>
     <div id="nc-root"></div>
 
-    <!-- Load Decap CMS locally -->
+    <!-- Load Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Load Decap CMS -->
     <script src="/admin/decap-cms.js"></script>
 
-    <!-- Initialize CMS after DOM is ready -->
+    <!-- Initialize CMS after DOM loads -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        if (typeof CMS !== "undefined" && CMS.init) {
-          CMS.init();
+        if (typeof CMS !== "undefined") {
+          // Optional: hook into Identity login for Git Gateway users
+          if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", (user) => {
+              if (!user) {
+                window.netlifyIdentity.on("login", () => {
+                  document.location.href = "/admin/";
+                });
+              }
+            });
+            window.netlifyIdentity.init();
+          }
+
+          // Initialize Decap CMS using your config.yml
+          CMS.init({
+            config: {
+              load_config_file: true,
+            },
+          });
         } else {
-          console.error("CMS failed to load or mount point is missing.");
+          console.error("CMS failed to load or mount.");
         }
       });
     </script>

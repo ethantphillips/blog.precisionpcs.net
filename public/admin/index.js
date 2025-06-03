@@ -1,7 +1,5 @@
 import CMS from "https://esm.sh/decap-cms-app@3.6.3";
-import "https://esm.sh/decap-cms-app@3.6.3/dist/decap-cms.css";
 
-// Optional but recommended: enable Netlify Identity login redirect
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", (user) => {
     if (!user) {

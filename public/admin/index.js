@@ -1,5 +1,7 @@
 import CMS from "https://esm.sh/decap-cms-app@3.6.3";
 
+// No CSS imports here
+
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", (user) => {
     if (!user) {

@@ -1,44 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <title>Decap CMS</title>
+    <title>CMS | PrecisionPCs</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <div id="nc-root"></div>
-
-    <!-- Load Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <!-- Load Decap CMS -->
-    <script src="/admin/decap-cms.js"></script>
-
-    <!-- Initialize CMS after DOM loads -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof CMS !== "undefined") {
-          // Optional: hook into Identity login for Git Gateway users
-          if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", (user) => {
-              if (!user) {
-                window.netlifyIdentity.on("login", () => {
-                  document.location.href = "/admin/";
-                });
-              }
-            });
-            window.netlifyIdentity.init();
-          }
-
-          // Initialize Decap CMS using your config.yml
-          CMS.init({
-            config: {
-              load_config_file: true,
-            },
-          });
-        } else {
-          console.error("CMS failed to load or mount.");
-        }
-      });
-    </script>
+    <script type="module" src="/src/admin/index.js"></script>
   </body>
 </html>

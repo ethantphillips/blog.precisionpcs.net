@@ -4,21 +4,18 @@
     <meta charset="UTF-8" />
     <title>CMS | PrecisionPCs</title>
 
-    <!-- Netlify Identity -->
+    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <!-- CMS Core Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/decap-cms@3.6.3/dist/decap-cms.css" />
-
-    <!-- CodeMirror Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/codemirror@5.65.13/lib/codemirror.css" />
-    <link rel="stylesheet" href="https://unpkg.com/codemirror@5.65.13/theme/material.css" />
-
-    <!-- OpenLayers Styles (optional if map widgets are used) -->
-    <link rel="stylesheet" href="https://unpkg.com/ol@latest/ol.css" />
+    <!-- Self-hosted Stylesheets -->
+    <link rel="stylesheet" href="/admin/css/codemirror.css" />
+    <link rel="stylesheet" href="/admin/css/material.css" />
+    <link rel="stylesheet" href="/admin/css/ol.css" />
   </head>
   <body>
     <div id="nc-root"></div>
+
+    <!-- Load CMS -->
     <script type="module" src="/admin/index.js"></script>
   </body>
 </html>

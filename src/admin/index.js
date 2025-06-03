@@ -1,7 +1,6 @@
-import CMS from "https://esm.sh/decap-cms-app@3.6.3";
+import CMS from "decap-cms-app";
 
-// ⚠️ No `import "style.css"` lines here.
-
+// Optional: Add Netlify Identity auto-login support
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", (user) => {
     if (!user) {
@@ -16,7 +15,7 @@ CMS.init({
   config: {
     backend: {
       name: "git-gateway",
-      branch: "main",
+      branch: "main"
     },
     media_folder: "/uploads",
     public_folder: "/uploads",
@@ -27,7 +26,8 @@ CMS.init({
         folder: "src/content/blog",
         create: true,
         slug: "{{slug}}",
-        preview: false,
+        editor: { preview: true },
+        publish_mode: "editorial_workflow",
         fields: [
           { label: "Title", name: "title", widget: "string" },
           { label: "Publish Date", name: "pubDate", widget: "datetime" },
@@ -35,9 +35,9 @@ CMS.init({
           { label: "Tags", name: "tags", widget: "list" },
           { label: "Author", name: "author", widget: "string", default: "Ethan Phillips" },
           { label: "Featured Image", name: "thumbnail", widget: "image", required: false },
-          { label: "Body", name: "body", widget: "markdown" },
-        ],
-      },
-    ],
-  },
+          { label: "Body", name: "body", widget: "markdown" }
+        ]
+      }
+    ]
+  }
 });

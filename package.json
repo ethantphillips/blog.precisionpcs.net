@@ -5,7 +5,8 @@
     "dev": "astro dev",
     "preinstall": "npm install @astrojs/netlify@^6.3.4",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "cms:build": "vite build --config vite.cms.config.js"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.3.4",
@@ -18,6 +19,10 @@
     "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.33.0"
+    "sharp": "^0.33.0",
+    "slate-hyperscript": "^0.100.0"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
   }
 }

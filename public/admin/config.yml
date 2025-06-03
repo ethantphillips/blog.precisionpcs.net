@@ -1,6 +1,10 @@
 backend:
   name: git-gateway
   branch: main
+"overrides": {
+  "react": "^18.3.1",
+  "react-dom": "^18.3.1"
+}
 
 media_folder: /uploads
 public_folder: /uploads

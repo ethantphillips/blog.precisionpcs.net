@@ -1,16 +1,13 @@
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      path: 'path-browserify',
-    },
-  },
+  base: '/admin/', // ensures assets load correctly from /admin
   build: {
-    outDir: 'dist/admin',
-    emptyOutDir: true,
+    outDir: 'dist/admin',       // output directory
+    emptyOutDir: true,          // clean before building
     rollupOptions: {
-      input: 'src/admin/index.js',
+      input: path.resolve(__dirname, 'src/admin/index.js'), // entry point
     },
   },
 });

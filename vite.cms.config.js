@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  // your Vite config here
   build: {
-    outDir: 'dist/admin', // final location of built files
-    emptyOutDir: true,     // keeps index.html and css
+    outDir: 'dist/admin',
+    emptyOutDir: true,
     rollupOptions: {
-      input: './src/admin/index.js'
-    }
-  }
+      input: 'src/admin/index.js',
+    },
+  },
 });

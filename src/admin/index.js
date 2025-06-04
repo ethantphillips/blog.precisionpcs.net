@@ -1,4 +1,5 @@
-import CMS from "netlify-cms-app";
+import CMS from "decap-cms-app";
+import './admin.css';
 
 // Optional: Add Netlify Identity auto-login support
 if (window.netlifyIdentity) {

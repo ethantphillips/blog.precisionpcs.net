@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // your Vite config here
+  resolve: {
+    alias: {
+      path: 'path-browserify',
+    },
+  },
   build: {
     outDir: 'dist/admin',
     emptyOutDir: true,

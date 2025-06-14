@@ -1,6 +1,4 @@
-import CMS from "https://esm.sh/decap-cms-app@3.6.3";
-
-// ⚠️ No `import "style.css"` lines here.
+// Decap CMS is loaded via <script> tag in index.html
 
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", (user) => {

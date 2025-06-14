@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getCollection('blog').then(posts => posts.find(p => p.slug === slug));
+if (!post) throw new Error(`Post not found: ${slug}`);
+---
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="/uploads/logo.png">
+    <meta charset="UTF-8">
+    <title>{post.data.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5717141519109804" crossorigin="anonymous"></script>
+    <style>
+      body {
+        background-color: #FAF1E8;
+        font-family: sans-serif;
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 1rem;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      h1 { color: #DB4520; }
+      .content img { max-width: 100%; height: auto; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/"><img src="/uploads/logo.png" alt="Logo" style="max-width:160px"></a>
+    </header>
+    <article>
+      <h1>{post.data.title}</h1>
+      <p><strong>{post.data.pubDate}</strong> • {post.data.author}</p>
+      <div class="content">
+        <astro:markdown content={post.body} />
+      </div>
+    </article>
+  </body>
+</html>

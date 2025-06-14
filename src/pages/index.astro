@@ -150,15 +150,6 @@ const posts = await getCollection('blog');
         }
         message.style.display = anyVisible ? 'none' : 'block';
     }
-        const term = searchBox.value.toLowerCase();
-        posts.forEach(card => {
-          const text = card.innerText.toLowerCase();
-          const cardTags = JSON.parse(card.dataset.tags || '[]');
-          const matchesTag = !activeTag || cardTags.includes(activeTag);
-          const matchesSearch = text.includes(term);
-          card.style.display = matchesTag && matchesSearch ? 'block' : 'none';
-        });
-      }
     </script>
   </body>
 </html>

@@ -5,6 +5,6 @@ description: Description
 tags:
   - Tags
 author: Ethan Phillips
-thumbnail: image
+thumbnail: /uploads/logo.png
 ---
 body

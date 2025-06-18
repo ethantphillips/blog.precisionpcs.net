@@ -59,9 +59,11 @@ const posts = await getCollection('blog');
         transform: scale(1.02);
       }
       .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
+        max-width: 100%;
+        height: auto;
+        max-height: 250px;
+        display: block;
+        margin: 0 auto;
       }
       .card-content {
         padding: 1rem;
@@ -69,10 +71,12 @@ const posts = await getCollection('blog');
       .card h2 {
         margin: 0 0 0.5rem;
         color: #DB4520;
+        word-break: break-word;
       }
       .card p {
         margin: 0;
         font-size: 0.9rem;
+        word-break: break-word;
       }
     </style>
   </head>
@@ -114,7 +118,10 @@ const posts = await getCollection('blog');
       const tags = new Set();
       posts.forEach(card => {
         const postTags = JSON.parse(card.dataset.tags || '[]');
-        postTags.forEach(tag => tags.add(tag));
+        postTags.forEach(tag => {
+          const cleaned = tag && tag.trim();
+          if (cleaned) tags.add(cleaned);
+        });
       });
 
       tags.forEach(tag => {

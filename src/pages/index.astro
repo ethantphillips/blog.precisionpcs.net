@@ -134,6 +134,12 @@ const posts = await getCollection('blog');
     <script type="module">
       const posts = Array.from(document.querySelectorAll('.card'));
       const searchBox = document.getElementById('searchBox');
+      searchBox.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          filterPosts();
+        }
+      });
 
       function filterPosts() {
         const postGrid = document.getElementById('postGrid');

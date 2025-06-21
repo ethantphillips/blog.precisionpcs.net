@@ -42,8 +42,12 @@ const posts = await getCollection('blog');
         font-weight: bold;
         margin-bottom: 2rem;
       }
-      .search, .tags {
+      .search {
         margin-bottom: 1rem;
+      }
+      .tags {
+        margin-bottom: 1rem;
+        display: none;
       }
       .tag {
         background-color: #DB4520;
@@ -114,7 +118,7 @@ const posts = await getCollection('blog');
   <div class="search">
     <input type="text" id="searchBox" placeholder="Search posts..." oninput="filterPosts()" style="padding: 0.5rem; width: 90%; max-width: 400px; margin-top: 2rem;">
   </div>
-  <div class="tags" id="tagFilter"></div>
+  <div class="tags" id="tagFilter" style="display:none;"></div>
 </header>
     <main class="posts" id="postGrid">
       {posts.map(post => (
@@ -129,31 +133,7 @@ const posts = await getCollection('blog');
     </main>
     <script type="module">
       const posts = Array.from(document.querySelectorAll('.card'));
-      const tagArea = document.getElementById('tagFilter');
       const searchBox = document.getElementById('searchBox');
-
-      let activeTag = null;
-
-      const tags = new Set();
-      posts.forEach(card => {
-        const postTags = JSON.parse(card.dataset.tags || '[]');
-        postTags.forEach(tag => {
-          const cleaned = tag && tag.trim();
-          if (cleaned) tags.add(cleaned);
-
-        });
-      });
-
-      tags.forEach(tag => {
-        const btn = document.createElement('span');
-        btn.className = 'tag';
-        btn.textContent = tag;
-        btn.onclick = () => {
-          activeTag = (activeTag === tag) ? null : tag;
-          filterPosts();
-        };
-        tagArea.appendChild(btn);
-      });
 
       function filterPosts() {
         const postGrid = document.getElementById('postGrid');
@@ -161,10 +141,9 @@ const posts = await getCollection('blog');
         const searchTerm = searchBox.value.toLowerCase();
         posts.forEach(card => {
           const text = card.innerText.toLowerCase();
-          const cardTags = JSON.parse(card.dataset.tags || '[]');
-          const matchesTag = !activeTag || cardTags.includes(activeTag);
-          const matchesSearch = text.includes(searchTerm);
-          const visible = matchesTag && matchesSearch;
+          const cardTags = JSON.parse(card.dataset.tags || '[]').map(t => t.toLowerCase());
+          const matchesSearch = text.includes(searchTerm) || cardTags.some(t => t.includes(searchTerm));
+          const visible = matchesSearch;
           card.style.display = visible ? 'block' : 'none';
           if (visible) anyVisible = true;
         });

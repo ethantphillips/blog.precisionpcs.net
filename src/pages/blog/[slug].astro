@@ -9,6 +9,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const post = await getEntry('blog', slug);
 if (!post) throw new Error(`Post not found: ${slug}`);
+const { Content } = await post.render();
 ---
 <html lang="en">
   <head>
@@ -59,7 +60,7 @@ if (!post) throw new Error(`Post not found: ${slug}`);
       <h1>{post.data.title}</h1>
       <p><strong>{post.data.pubDate}</strong> • {post.data.author}</p>
       <div class="content">
-        <astro:markdown content={post.body} />
+        <Content />
       </div>
     </article>
   </body>

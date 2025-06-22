@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const post = await getCollection('blog').then(posts => posts.find(p => p.slug === slug));
+const post = await getEntry('blog', slug);
 if (!post) throw new Error(`Post not found: ${slug}`);
 ---
 <html lang="en">
@@ -20,7 +20,7 @@ if (!post) throw new Error(`Post not found: ${slug}`);
     <style>
       body {
         background-color: #FAF1E8;
-        font-family: sans-serif;
+        font-family: "Helvetica Neue", Arial, sans-serif;
         margin: 0 auto;
         max-width: 800px;
         padding: 1rem;
@@ -30,6 +30,10 @@ if (!post) throw new Error(`Post not found: ${slug}`);
         margin-bottom: 2rem;
       }
       h1 { color: #DB4520; }
+      .content {
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.6;
+      }
       .content img { max-width: 100%; height: auto; }
     </style>
   </head>
@@ -39,10 +43,15 @@ if (!post) throw new Error(`Post not found: ${slug}`);
     </header>
     <article>
       <h1>{post.data.title}</h1>
-      <p><strong>{post.data.pubDate}</strong> • {post.data.author}</p>
+      <p><strong><time id="post-date" datetime={post.data.pubDate}>{post.data.pubDate}</time></strong> • {post.data.author}</p>
       <div class="content">
         <astro:markdown content={post.body} />
       </div>
     </article>
+    <script>
+      const el = document.getElementById('post-date');
+      const date = new Date(el.dateTime || el.getAttribute('datetime'));
+      el.textContent = date.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' });
+    </script>
   </body>
 </html>
